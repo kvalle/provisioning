@@ -1,0 +1,6 @@
+- name: installing basic commands
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+    - zip
+    - tree
+    - vim

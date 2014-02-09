@@ -1,5 +1,12 @@
-- hosts: 
-    - all
+- name: basic user config
+  hosts: all
   tasks:
     - include: roles/common/tasks/users.yml
   user: root
+
+- name: installing necessary bells and whistles
+  hosts: all
+  tasks:
+    - include: roles/common/tasks/basic_commands.yml
+  user: kjetil
+  sudo: yes
