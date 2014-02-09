@@ -1,0 +1,8 @@
+- name: setup user 'kjetil'
+  user: name=kjetil password=It4SVa.txiu9Q state=present shell=/bin/bash
+- name: creating .ssh folder
+  file: path=/home/kjetil/.ssh state=directory owner=kjetil
+- name: set up authorized_keys
+  copy: src=authorized_keys dest=/home/kjetil/.ssh/authorized_keys owner=kjetil
+- name: add to sudoers file
+  lineinfile: dest=/etc/sudoers regexp=^kjetil line="kjetil ALL=(ALL) ALL"
