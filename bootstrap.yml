@@ -3,6 +3,7 @@
   tasks:
     - include: tasks/users.yml
     - include: tasks/hostname.yml
+    - include: tasks/locale.yml
   user: root
 
 - name: installing necessary bells and whistles
