@@ -1,0 +1,7 @@
+- name: Set the hostname
+  template: src=templates/hostname.jinja dest=/etc/hostname owner=root mode=644
+  register: hn
+
+- name: Update hostname so we don't need to reboot
+  shell: hostname {{ hostname }}
+  when: hn.changed

@@ -2,6 +2,7 @@
   hosts: all
   tasks:
     - include: tasks/users.yml
+    - include: tasks/hostname.yml
   user: root
 
 - name: installing necessary bells and whistles
