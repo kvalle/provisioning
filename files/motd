@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Colors
+bold='\e[1m'
+faded='\e[2m'
+blue='\e[0;34m'
+reset='\e[0m'
+
+DATE=$(date +"%A, %e %B %Y, %r")
+
+UP_SECONDS_TOTAL="$(/usr/bin/cut -d. -f1 /proc/uptime)"
+UP_SECS=$((${UP_SECONDS_TOTAL}%60))
+UP_MINS=$((${UP_SECONDS_TOTAL}/60%60))
+UP_HOURS=$((${UP_SECONDS_TOTAL}/3600%24))
+UP_DAYS=$((${UP_SECONDS_TOTAL}/86400))
+UPTIME=$(printf "%d days, %02dh %02dm %02ds" "$UP_DAYS" "$UP_HOURS" "$UP_MINS" "$UP_SECS")
+
+IP=$(wget -q -O - http://icanhazip.com/ | tail)
+
+MEM_USED_PERCENT=$(free | grep Mem | awk '{ printf("%.1f", $3/$2 * 100.0) }')
+MEM_TOTAL=$(free | grep Mem | awk '{ printf("%.1f", $2 / (1024*1024)) }')
+
+DISK_TOTAL=$(df -h | grep -e " /$" | sed "s/ \+/ /g" | cut -d" " -f3)
+DISK_FREE=$(df -h | grep -e " /$" | sed "s/ \+/ /g" | cut -d" " -f4)
+
+W0="${blue}            ${reset}"
+W1="${blue}       .-'               ${reset}"
+W2="${blue}  '--./ /      _.----.   ${reset}"
+W3="${blue}  '-,  (___..-\`       \\  ${reset}"
+W4="${blue}     \\          .     |  ${reset}"
+W5="${blue}      \`,.__.   ,__.--/   ${reset}"
+W6="${blue}        '._/_.'___.-\`    ${reset}"
+
+echo
+echo -e "$W0  ${bold}$DATE${reset}"
+echo -e "$W1"
+echo -e "$W2"
+echo -e "$W3  ${faded}Uptime..${reset}  $UPTIME"
+echo -e "$W4  ${faded}Disk....${reset}  $DISK_TOTAL ($DISK_FREE free)"
+echo -e "$W5  ${faded}Memory..${reset}  ${MEM_TOTAL}G (${MEM_USED_PERCENT}% used)"
+echo -e "$W6  ${faded}IP......${reset}  $IP" 
+echo

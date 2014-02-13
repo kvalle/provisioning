@@ -4,6 +4,7 @@
     - include: tasks/users.yml
     - include: tasks/hostname.yml
     - include: tasks/locale.yml
+    - include: tasks/motd.yml
   user: root
 
 - name: installing necessary bells and whistles

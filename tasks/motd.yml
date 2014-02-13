@@ -1,0 +1,11 @@
+- name: Intall update-motd
+  apt: pkg=update-motd state=installed update_cache=yes
+- name: Remove original files under /etc/update-motd.d/
+  file: path=/etc/update-motd.d/{{ item }} state=absent
+  with_items:
+    - 00-header
+    - 10-help-text
+    - 91-release-upgrade
+    - 99-footer
+- name: Copy new motd file
+  copy: src=motd dest=/etc/update-motd.d/10-motd owner=root mode=755
