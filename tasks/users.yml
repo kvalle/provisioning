@@ -2,7 +2,10 @@
   user: name=kjetil password=It4SVa.txiu9Q state=present shell=/bin/bash
 - name: creating .ssh folder
   file: path=/home/kjetil/.ssh state=directory owner=kjetil
-- name: set up authorized_keys
-  copy: src=authorized_keys dest=/home/kjetil/.ssh/authorized_keys owner=kjetil
-- name: add to sudoers file
+- name: setting up authorized_key for user
+  authorized_key: user=kjetil 
+                  key="{{ lookup('file', '/home/kjetil/.ssh/id_rsa.pub') }}"
+- name: copy id_rsa from host machine
+  copy: src=/home/kjetil/.ssh/id_rsa dest=/home/kjetil/.ssh/id_rsa owner=kjetil
+- name: add user to sudoers file
   lineinfile: dest=/etc/sudoers regexp=^kjetil line="kjetil ALL=(ALL) ALL"
