@@ -1,8 +1,11 @@
 - name: installing basic commands
   apt: pkg={{ item }} state=installed update_cache=yes
   with_items:
+    - git
     - zip
     - tree
     - vim
     - screen
     - irssi
+    - python-pip
+    - python-virtualenv
