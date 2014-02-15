@@ -1,14 +1,15 @@
 - name: Intall update-motd
   apt: pkg=update-motd state=installed update_cache=yes
-- name: Remove original files under /etc/update-motd.d/
-  file: path=/etc/update-motd.d/{{ item }} state=absent
-  with_items:
-    - 00-header
-    - 10-help-text
-    - 91-release-upgrade
-    - 99-footer
 - name: Copy new motd file
   copy: src=motd dest=/etc/update-motd.d/10-motd owner=root mode=755
+- name: reading 'update-motd.d' files
+  shell: ls -1 /etc/update-motd.d/*
+  register: motd_contents
+  changed_when: no
+- name: removing files from 'update-motd.d'
+  file: name=/etc/update-motd.d/{{ item }} state=absent
+  with_items: motd_contents.stdout_lines
+  when: "'10-motd' not in '{{ item }}'"
 - name: "set sshd_config, PrintLastLog: no"
   lineinfile: >
     dest=/etc/ssh/sshd_config 
