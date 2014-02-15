@@ -4,6 +4,7 @@
 bold='\e[1m'
 faded='\e[2m'
 blue='\e[0;34m'
+bblue='\e[1;34m'
 reset='\e[0m'
 
 DATE=$(date +"%A, %e %B %Y, %r")
@@ -30,7 +31,7 @@ W0="${blue}            ${reset}"
 W1="${blue}       .-'               ${reset}"
 W2="${blue}  '--./ /      _.----.   ${reset}"
 W3="${blue}  '-,  (___..-\`       \\  ${reset}"
-W4="${blue}     \\          .     |  ${reset}"
+W4="${blue}     \\          ${bblue}.${blue}     |  ${reset}"
 W5="${blue}      \`,.__.   ,__.--/   ${reset}"
 W6="${blue}        '._/_.'___.-\`    ${reset}"
 
