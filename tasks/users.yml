@@ -5,7 +5,5 @@
 - name: setting up authorized_key for user
   authorized_key: user=kjetil 
                   key="{{ lookup('file', '/home/kjetil/.ssh/id_rsa.pub') }}"
-- name: copy id_rsa from host machine
-  copy: src=/home/kjetil/.ssh/id_rsa dest=/home/kjetil/.ssh/id_rsa owner=kjetil
 - name: add user to sudoers file
   lineinfile: dest=/etc/sudoers regexp=^kjetil line="kjetil ALL=(ALL) ALL"

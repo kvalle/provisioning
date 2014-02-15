@@ -10,6 +10,7 @@
 - name: installing necessary bells and whistles
   hosts: all
   tasks:
+    - include: tasks/keys.yml
     - include: tasks/basic_commands.yml
+    - include: tasks/dotfiles.yml
   user: kjetil
-  sudo: yes

@@ -1,0 +1,7 @@
+- name: copy id_rsa from host machine
+  copy: src=/home/kjetil/.ssh/id_rsa dest=/home/kjetil/.ssh/id_rsa owner=kjetil group=kjetil
+- name: ssh-add id_rsa
+  shell: cd /home/kjetil/.ssh && eval "$(ssh-agent)" && ssh-add id_rsa
+  #eval "$(ssh-agent)"
+  #ssh-add id_rsa
+  # eval "$(ssh-agent)" && ssh-add id_rsa

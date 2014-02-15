@@ -9,3 +9,4 @@
     - irssi
     - python-pip
     - python-virtualenv
+  sudo: yes
