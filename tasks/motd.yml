@@ -9,3 +9,12 @@
     - 99-footer
 - name: Copy new motd file
   copy: src=motd dest=/etc/update-motd.d/10-motd owner=root mode=755
+- name: "set sshd_config, PrintLastLog: no"
+  lineinfile: >
+    dest=/etc/ssh/sshd_config 
+    regexp="^PrintLastLog" 
+    line="PrintLastLog no"
+  register: ssh_conf
+- name: restart ssh
+  service: name=ssh state=reloaded
+  when: ssh_conf.changed
