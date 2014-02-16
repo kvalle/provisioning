@@ -10,7 +10,7 @@
   file: name=/etc/update-motd.d/{{ item }} state=absent
   with_items: motd_contents.stdout_lines
   when: "'10-motd' not in '{{ item }}'"
-- name: "set sshd_config, PrintLastLog: no"
+- name: "set sshd_config, PrintLastLog no"
   lineinfile: >
     dest=/etc/ssh/sshd_config 
     regexp="^PrintLastLog" 
