@@ -16,7 +16,7 @@ UP_HOURS=$((${UP_SECONDS_TOTAL}/3600%24))
 UP_DAYS=$((${UP_SECONDS_TOTAL}/86400))
 UPTIME=$(printf "%d days, %02dh %02dm %02ds" "$UP_DAYS" "$UP_HOURS" "$UP_MINS" "$UP_SECS")
 
-IP=$(wget -q -O - http://icanhazip.com/ | tail)
+IP=$(wget --timeout=2 -q -O - http://icanhazip.com/ | tail)
 
 MEM_USED_PERCENT=$(free | grep Mem | awk '{ printf("%.1f", $3/$2 * 100.0) }')
 MEM_TOTAL=$(free | grep Mem | awk '{ printf("%.1f", $2 / (1024*1024)) }')
