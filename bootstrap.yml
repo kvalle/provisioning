@@ -13,4 +13,6 @@
     - include: tasks/keys.yml
     - include: tasks/basic_commands.yml
     - include: tasks/dotfiles.yml
+    - include: tasks/install_nginx.yml
+    - include: tasks/blog.yml
   user: kjetil

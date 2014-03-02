@@ -1,0 +1,12 @@
+- name: Copy nginx blog site
+  template: src=nginx/blog.jinja dest=/etc/nginx/sites-available/blog owner=root mode=644
+  sudo: yes
+  notify:
+    - reload nginx
+- name: Symlink into sites-enabled
+  action: file src=/etc/nginx/sites-available/blog dest=/etc/nginx/sites-enabled/blog owner=root group=root state=link
+  sudo: yes
+  notify:
+    - reload nginx
+- name: Create directory for hosting blog
+  file: name=/home/kjetil/web/blog/ state=directory recurse=yes

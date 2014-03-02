@@ -1,0 +1,10 @@
+- name: Install Nginx
+  apt: pkg=nginx state=installed update_cache=yes
+  sudo: yes
+- name: Ensure nginx is started
+  service: name=nginx state=started
+- name: Remove default site
+  file: state=absent name=/etc/nginx/sites-{{ item }}}/default
+  with_items: 
+    - available
+    - enabled
