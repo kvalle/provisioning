@@ -15,4 +15,5 @@
     - include: tasks/dotfiles.yml
     - include: tasks/install_nginx.yml
     - include: tasks/blog.yml
+    - include: tasks/git.yml
   user: kjetil
