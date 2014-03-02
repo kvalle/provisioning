@@ -7,7 +7,7 @@
   register: motd_contents
   changed_when: no
 - name: removing files from 'update-motd.d'
-  file: name=/etc/update-motd.d/{{ item }} state=absent
+  file: state=absent name={{ item }}
   with_items: motd_contents.stdout_lines
   when: "'10-motd' not in '{{ item }}'"
 - name: "set sshd_config, PrintLastLog no"
