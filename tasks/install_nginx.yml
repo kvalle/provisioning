@@ -3,6 +3,7 @@
   sudo: yes
 - name: Ensure nginx is started
   service: name=nginx state=started
+  sudo: yes
 - name: Remove default site
   file: state=absent name=/etc/nginx/sites-{{ item }}}/default
   with_items: 
