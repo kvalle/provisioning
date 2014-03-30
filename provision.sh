@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-HOST=$1
-if [ -n $HOST ]; then
-    HOST="vagrant"
-fi
+read -e -p "Which hosts file? " -i "hosts-vagrant" HOST
 
-ansible-playbook -i hosts-$HOST bootstrap.yml --ask-sudo-pass
+ansible-playbook -i $HOST bootstrap.yml --ask-sudo-pass
