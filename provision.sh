@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
-ansible-playbook -i hosts-vagrant bootstrap.yml --ask-sudo-pass
+HOST=$1
+if [ -n $HOST ]; then
+    HOST="vagrant"
+fi
+
+ansible-playbook -i hosts-$HOST bootstrap.yml --ask-sudo-pass
