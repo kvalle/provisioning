@@ -3,7 +3,7 @@
   register: hn
 
 - name: Update /etc/hosts
-  lineinfile: dest=/etc/hosts line="127.0.1.1       {{server_name}}" regexp="{{server_name}}"
+  lineinfile: dest=/etc/hosts line="127.0.1.1       {{ hostname }}" regexp="{{ hostname }}"
   when: hn.changed
 
 - name: Update hostname so we don't need to reboot

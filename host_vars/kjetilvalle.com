@@ -1,2 +1,2 @@
-hostname: kjetilvalle.com
-server_name: northpole
+hostname: northpole
+server_name: kjetilvalle.com
