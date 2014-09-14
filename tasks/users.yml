@@ -1,9 +1,13 @@
 - name: setup user 'kjetil'
   user: name=kjetil password=It4SVa.txiu9Q state=present shell=/bin/bash
+
 - name: creating .ssh folder
   file: path=/home/kjetil/.ssh state=directory owner=kjetil
+
 - name: setting up authorized_key for user
-  authorized_key: user=kjetil 
-                  key="{{ lookup('file', '/home/kjetil/.ssh/id_rsa.pub') }}"
+  authorized_key: user=kjetil key="{{item}}"
+  with_file:
+    - keys/bekk-mac.pub
+
 - name: add user to sudoers file
   lineinfile: dest=/etc/sudoers regexp=^kjetil line="kjetil ALL=(ALL) ALL"
