@@ -3,7 +3,10 @@
 set -e
 
 DEFAULT="vagrant"
-echo "Which hosts file? [$DEFAULT]"
+echo -en "Which hosts file? [$DEFAULT] \n> "
 read HOST
 
-ansible-playbook -i inventory/${HOST:-$DEFAULT} bootstrap.yml --ask-sudo-pass
+echo -en "Anything else? \n> "
+read EXTRA_ARGS
+
+ansible-playbook -i inventory/${HOST:-$DEFAULT} bootstrap.yml --ask-sudo-pass $EXTRA_ARGS
