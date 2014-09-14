@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-read -e -p "Which hosts file? " -i "hosts-vagrant" HOST
+set -e
 
-ansible-playbook -i $HOST bootstrap.yml --ask-sudo-pass
+DEFAULT="vagrant"
+echo "Which hosts file? [$DEFAULT]"
+read HOST
+
+ansible-playbook -i inventory/${HOST:-$DEFAULT} bootstrap.yml --ask-sudo-pass
