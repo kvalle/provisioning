@@ -1,0 +1,11 @@
+- name: make sure known_hosts file exists
+  shell: > 
+    touch /home/kjetil/.ssh/known_hosts
+    creates=/home/kjetil/.ssh/known_hosts
+- name: check if github.com is in known_hosts
+  shell: ssh-keygen -F github.com
+  register: github_key
+- name: getting ssh keys from github
+  shell: > 
+    ssh-keyscan -H github.com >> /home/kjetil/.ssh/known_hosts
+  when: "'{{ github_key.stdout }}' == ''"
