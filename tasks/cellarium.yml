@@ -1,0 +1,15 @@
+- name: Copy cellarium nginx config
+  copy: src=nginx/cellarium.conf dest=/etc/nginx/sites-available/default.d/cellarium.conf owner=root mode=755
+  notify:
+    - reload nginx
+  sudo: yes
+
+- name: Git clone cellarium repo
+  action: git repo=git@github.com:kvalle/cellarium.git dest=/home/kjetil/cellarium
+
+
+#sudo apt-get install build-essential
+#sudo apt-get install python-dev
+#sudo pip install uwsgi uwsgitop
+
+#sudo pip install -r requirements.txt
