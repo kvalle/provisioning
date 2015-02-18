@@ -5,6 +5,7 @@
     - zip
     - tree
     - vim
+    - curl
     - screen
     - irssi
     - python-pip
