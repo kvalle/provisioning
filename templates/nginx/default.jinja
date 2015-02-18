@@ -4,7 +4,5 @@ server {
     access_log /var/log/nginx/access.log;
     error_log /var/log/nginx/error.log;
 
-    location / {
-        root /home/kjetil/web/blog;
-    }
+    include sites-available/default.d/*.conf;
 }

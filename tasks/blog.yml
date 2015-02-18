@@ -1,17 +1,8 @@
-- name: Copy nginx blog site
-  template: src=nginx/blog.jinja dest=/etc/nginx/sites-available/blog owner=root mode=644
-  sudo: yes
+- name: Copy blog nginx config
+  copy: src=nginx/blog.conf dest=/etc/nginx/sites-available/default.d/blog.conf owner=root mode=755
   notify:
     - reload nginx
-- name: Symlink into sites-enabled
-  action: file src=/etc/nginx/sites-available/blog dest=/etc/nginx/sites-enabled/blog owner=root group=root state=link
   sudo: yes
-  notify:
-    - reload nginx
-- name: remove default site
-  file: dest=/etc/nginx/sites-enabled/default state=absent
-  sudo: yes
-  notify:
-    - reload nginx
+
 - name: Create directory for hosting blog
-  file: name=/home/kjetil/web/blog/ state=directory recurse=yes
+  file: name=/home/kjetil/blog/ state=directory recurse=yes
