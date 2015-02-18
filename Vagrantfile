@@ -19,4 +19,11 @@ Vagrant::Config.run do |config|
   # computers to access the VM, whereas host only networking does not.
   config.vm.forward_port 80, 8080
 
+  # Set up root pwd + key
+  config.vm.provision "shell", inline: <<-SCRIPT
+    sudo sed -i '/^root:/ s/:[^:]*/:jaoTRJA9v2kpg/' /etc/shadow
+    sudo mkdir -p /root/.ssh
+    printf "%s\n" "#{File.read("#{ENV['HOME']}/.ssh/id_rsa.pub")}" > /root/.ssh/authorized_keys
+  SCRIPT
+
 end
