@@ -7,9 +7,21 @@
 - name: Git clone cellarium repo
   action: git repo=git@github.com:kvalle/cellarium.git dest=/home/kjetil/cellarium
 
+- name: Installing build-essential
+  apt: pkg=build-essential state=installed
+  sudo: yes
 
-#sudo apt-get install build-essential
-#sudo apt-get install python-dev
-#sudo pip install uwsgi uwsgitop
+- name: Installing python-dev
+  apt: pkg=python-dev state=installed
+  sudo: yes
 
-#sudo pip install -r requirements.txt
+- name: Installing uwsgi and uwsgitop
+  pip: name={{item}}
+  sudo: yes
+  with_items:
+    - uwsgi
+    - uwsgitop
+
+- name: Installing cellarium requirements
+  pip: requirements=/home/kjetil/cellarium/server/requirements.txt
+  sudo: yes
