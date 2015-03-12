@@ -3,20 +3,24 @@
 
 - name: Copy new motd file
   copy: src=motd dest=/etc/update-motd.d/10-motd owner=root mode=755
-- name: reading 'update-motd.d' files
+
+- name: Reading 'update-motd.d' files
   shell: ls -1 /etc/update-motd.d/*
   register: motd_contents
   changed_when: no
-- name: removing files from 'update-motd.d'
+
+- name: Removing files from 'update-motd.d'
   file: state=absent name={{ item }}
   with_items: motd_contents.stdout_lines
   when: "'10-motd' not in '{{ item }}'"
-- name: "set sshd_config, PrintLastLog no"
+
+- name: "Set sshd_config, PrintLastLog no"
   lineinfile: >
     dest=/etc/ssh/sshd_config 
     regexp="^PrintLastLog" 
     line="PrintLastLog no"
   register: ssh_conf
-- name: restart ssh
+
+- name: Restart ssh
   service: name=ssh state=reloaded
   when: ssh_conf.changed

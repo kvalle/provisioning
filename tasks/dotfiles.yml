@@ -1,9 +1,11 @@
 - name: Git clone dotfiles repo
   action: git repo=git@github.com:kvalle/dotfiles.git dest=/home/kjetil/dotfiles
   register: clone_dotfiles
+
 - name: Ensure pip installed PyYAML
   pip: name=PyYAML
   sudo: yes
-- name: symlink dotfiles
+
+- name: Symlink dotfiles
   when: clone_dotfiles.changed
   shell: /home/kjetil/dotfiles/symlink.py
