@@ -1,5 +1,5 @@
 - name: Copy blog nginx config
-  copy: src=nginx/blog.conf dest=/etc/nginx/sites-available/default.d/blog.conf owner=root mode=755
+  copy: src=blog/nginx/blog.conf dest=/etc/nginx/sites-available/default.d/blog.conf owner=root mode=755
   notify:
     - reload nginx
   sudo: yes
