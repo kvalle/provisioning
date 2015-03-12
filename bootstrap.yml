@@ -10,6 +10,9 @@
 - name: installing necessary bells and whistles
   hosts: all
   tasks:
+    - name: Updating apt cache
+      apt: update_cache=yes
+      sudo: yes
     - include: tasks/keys.yml
     - include: tasks/basic_commands.yml
     - include: tasks/github.yml

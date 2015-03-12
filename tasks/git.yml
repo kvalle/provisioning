@@ -1,5 +1,6 @@
 - name: Install Git
-  apt: pkg=git state=installed update_cache=yes
+  apt: pkg=git state=installed
   sudo: yes
+
 - name: Create folder for repos
   file: name=/home/kjetil/git/ state=directory recurse=yes owner=kjetil

@@ -1,5 +1,5 @@
 - name: installing basic commands
-  apt: pkg={{ item }} state=installed update_cache=yes
+  apt: pkg={{ item }} state=installed
   with_items:
     - git
     - zip

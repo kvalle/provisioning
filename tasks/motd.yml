@@ -1,5 +1,6 @@
 - name: Install update-motd
-  apt: pkg=update-motd state=installed update_cache=yes
+  apt: pkg=update-motd state=installed
+
 - name: Copy new motd file
   copy: src=motd dest=/etc/update-motd.d/10-motd owner=root mode=755
 - name: reading 'update-motd.d' files
