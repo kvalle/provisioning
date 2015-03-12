@@ -1,5 +1,5 @@
 - name: Copy cellarium nginx config
-  copy: src=nginx/cellarium.conf dest=/etc/nginx/sites-available/default.d/cellarium.conf owner=root mode=755
+  copy: src=cellarium/nginx/cellarium.conf dest=/etc/nginx/sites-available/default.d/cellarium.conf owner=root mode=755
   notify:
     - reload nginx
   sudo: yes
