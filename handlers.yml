@@ -1,3 +1,7 @@
 - name: reload nginx
   service: name=nginx state=reloaded
   sudo: yes
+
+# - name: restart cellarium
+#   service: name=cellarium state=restarted
+#   sudo: yes

@@ -25,3 +25,19 @@
 - name: Installing cellarium requirements
   pip: requirements=/home/kjetil/cellarium/server/requirements.txt
   sudo: yes
+
+- name: Creating log directory for uwsgi/cellarium
+  file: path=/var/log/uwsgi state=directory
+  sudo: yes
+
+- name: Create /etc/cellarium
+  file: path=/etc/cellarium state=directory
+
+- name: Copy cellarium uwsgi.ini file
+  copy: src=cellarium/uwsgi/cellarium.ini dest=/etc/cellarium/uwsgi.conf owner=root mode=755
+
+- name: Copy cellarium upstart
+  copy: src=cellarium/upstart/cellarium.conf dest=/etc/init/cellarium.conf owner=root mode=755
+  # notify:
+  #   - restart cellarium
+  sudo: yes
