@@ -32,12 +32,14 @@
 
 - name: Create /etc/cellarium
   file: path=/etc/cellarium state=directory
+  sudo: yes
 
 - name: Copy cellarium uwsgi.ini file
-  copy: src=cellarium/uwsgi/cellarium.ini dest=/etc/cellarium/uwsgi.conf owner=root mode=755
+  copy: src=cellarium/uwsgi/cellarium.ini dest=/etc/cellarium/uwsgi.ini owner=root mode=644
+  sudo: yes
 
 - name: Copy cellarium upstart
-  copy: src=cellarium/upstart/cellarium.conf dest=/etc/init/cellarium.conf owner=root mode=755
+  copy: src=cellarium/upstart/cellarium.conf dest=/etc/init/cellarium.conf owner=root mode=644
   # notify:
   #   - restart cellarium
   sudo: yes
