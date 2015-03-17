@@ -1,26 +1,38 @@
-- name: basic user config
-  hosts: all
-  tasks:
-    - include: tasks/users.yml
-    - include: tasks/hostname.yml
-    - include: tasks/locale.yml
-    - include: tasks/motd.yml
-  user: root
-
-- name: installing necessary bells and whistles
+---
+- name: Basic setup
   hosts: all
   tasks:
     - name: Updating apt cache
       apt: update_cache=yes
-      sudo: yes
+    - include: tasks/users.yml
+    - include: tasks/hostname.yml
+    - include: tasks/locale.yml
+    - include: tasks/motd.yml
+  remote_user: root
+
+- name: Installing necessary bells and whistles
+  hosts: all
+  tasks:
     - include: tasks/keys.yml
     - include: tasks/basic_commands.yml
     - include: tasks/github.yml
     - include: tasks/dotfiles.yml
     - include: tasks/install_nginx.yml
     - include: tasks/blog.yml
-    - include: tasks/cellarium.yml
     - include: tasks/git.yml
   handlers:
-    - include: handlers.yml
-  user: kjetil
+    - name: reload nginx
+      service: name=nginx state=reloaded
+      sudo: yes
+  remote_user: kjetil
+
+- name: Installing and configuring Cellarium
+  hosts: all
+  remote_user: root
+  tasks:
+    - include: tasks/cellarium.yml
+  handlers:
+    - name: reload nginx
+      service: name=nginx state=reloaded
+    - name: restart cellarium
+      service: name=cellarium state=restarted

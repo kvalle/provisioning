@@ -2,44 +2,41 @@
   copy: src=cellarium/nginx/cellarium.conf dest=/etc/nginx/sites-available/default.d/cellarium.conf owner=root mode=755
   notify:
     - reload nginx
-  sudo: yes
+
+- name: Ensure /var/www is created
+  file: path=/var/www state=directory
 
 - name: Git clone cellarium repo
-  action: git repo=git@github.com:kvalle/cellarium.git dest=/home/kjetil/cellarium
+  git: repo=git@github.com:kvalle/cellarium.git dest=/var/www/cellarium key_file=/home/kjetil/.ssh/id_rsa accept_hostkey=yes
+
+- name: Ensure www-data ownership of cellarium home
+  file: path=/var/www/cellarium owner=www-data group=www-data recurse=yes
 
 - name: Installing build-essential
   apt: pkg=build-essential state=installed
-  sudo: yes
 
 - name: Installing python-dev
   apt: pkg=python-dev state=installed
-  sudo: yes
 
 - name: Installing uwsgi and uwsgitop
   pip: name={{item}}
-  sudo: yes
   with_items:
     - uwsgi
     - uwsgitop
 
 - name: Installing cellarium requirements
-  pip: requirements=/home/kjetil/cellarium/server/requirements.txt
-  sudo: yes
+  pip: requirements=/var/www/cellarium/server/requirements.txt
 
 - name: Creating log directory for uwsgi/cellarium
   file: path=/var/log/uwsgi state=directory
-  sudo: yes
 
 - name: Create /etc/cellarium
   file: path=/etc/cellarium state=directory
-  sudo: yes
 
 - name: Copy cellarium uwsgi.ini file
   copy: src=cellarium/uwsgi/cellarium.ini dest=/etc/cellarium/uwsgi.ini owner=root mode=644
-  sudo: yes
 
 - name: Copy cellarium upstart
   copy: src=cellarium/upstart/cellarium.conf dest=/etc/init/cellarium.conf owner=root mode=644
-  # notify:
-  #   - restart cellarium
-  sudo: yes
+  notify:
+    - restart cellarium
