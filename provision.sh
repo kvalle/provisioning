@@ -9,4 +9,4 @@ read HOST
 echo -en "Anything else? \n> "
 read EXTRA_ARGS
 
-ansible-playbook -i inventory/${HOST:-$DEFAULT} bootstrap.yml --ask-sudo-pass $EXTRA_ARGS
+ansible-playbook -i inventory/${HOST:-$DEFAULT} server.yml --ask-sudo-pass $EXTRA_ARGS

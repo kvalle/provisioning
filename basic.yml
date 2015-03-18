@@ -1,0 +1,21 @@
+---
+
+- name: Basic setup
+  hosts: all
+  tasks:
+    - name: Updating apt cache
+      apt: update_cache=yes
+    - include: tasks/users.yml
+    - include: tasks/hostname.yml
+    - include: tasks/locale.yml
+    - include: tasks/motd.yml
+  remote_user: root
+
+- name: Installing necessary bells and whistles
+  hosts: all
+  tasks:
+    - include: tasks/keys.yml
+    - include: tasks/basic_commands.yml
+    - include: tasks/github.yml
+    - include: tasks/dotfiles.yml
+  remote_user: kjetil
