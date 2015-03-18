@@ -1,6 +1,8 @@
 - name: Install Git
   apt: pkg=git state=installed
-  sudo: yes
+
+- name: Create user 'git'
+  user: name=git password=ejJSBLcTVQ2O6 state=present shell=/bin/bash
 
 - name: Create folder for repos
-  file: name=/home/kjetil/git/ state=directory recurse=yes owner=kjetil
+  file: name=/var/git/ state=directory recurse=yes owner=git
