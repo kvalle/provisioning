@@ -11,4 +11,3 @@
     - python-pip
     - python-virtualenv
     - inotify-tools
-  sudo: yes

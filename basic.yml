@@ -9,13 +9,13 @@
     - include: tasks/hostname.yml
     - include: tasks/locale.yml
     - include: tasks/motd.yml
+    - include: tasks/essential_commands.yml
   remote_user: root
 
 - name: Installing necessary bells and whistles
   hosts: all
   tasks:
     - include: tasks/keys.yml
-    - include: tasks/basic_commands.yml
     - include: tasks/github.yml
     - include: tasks/dotfiles.yml
   remote_user: kjetil
