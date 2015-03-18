@@ -1,6 +1,8 @@
 # Setting up key from the local machine, under the assumption that this key is known by GitHub
 - name: copy id_rsa from host machine
   copy: src=~/.ssh/id_rsa dest=/home/kjetil/.ssh/id_rsa owner=kjetil group=kjetil mode=0600
+  register: rsa_key
 
 - name: ssh-add id_rsa
   shell: cd /home/kjetil/.ssh && eval "$(ssh-agent)" && ssh-add id_rsa
+  when: rsa_key.changed
