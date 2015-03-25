@@ -10,7 +10,7 @@
   git: repo=git@github.com:kvalle/cellarium.git dest=/var/www/cellarium key_file=/home/kjetil/.ssh/id_rsa accept_hostkey=yes
 
 - name: Ensure www-data ownership of cellarium home
-  file: path=/var/www/cellarium owner=www-data group=www-data recurse=yes
+  file: path=/var/www/cellarium owner=kjetil group=www-data mode=775 recurse=yes
 
 - name: Installing build-essential
   apt: pkg=build-essential state=installed
