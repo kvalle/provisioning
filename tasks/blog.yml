@@ -5,4 +5,4 @@
   sudo: yes
 
 - name: Create directory for hosting blog
-  file: name=/home/kjetil/blog/ state=directory recurse=yes
+  file: name=/home/kjetil/blog/ state=directory owner=kjetil group=www-data mode=775 recurse=yes
