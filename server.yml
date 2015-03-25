@@ -6,7 +6,6 @@
   hosts: all
   tasks:
     - include: tasks/install_nginx.yml
-    - include: tasks/blog.yml
   handlers:
     - name: reload nginx
       service: name=nginx state=reloaded
@@ -16,6 +15,7 @@
   remote_user: root
   hosts: all
   tasks:
+    - include: tasks/blog.yml
     - include: tasks/cellarium.yml
     - include: tasks/git.yml
   handlers:

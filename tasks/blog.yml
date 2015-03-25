@@ -2,7 +2,6 @@
   copy: src=blog/nginx/blog.conf dest=/etc/nginx/sites-available/default.d/blog.conf owner=root mode=755
   notify:
     - reload nginx
-  sudo: yes
 
 - name: Create directory for hosting blog
-  file: name=/home/kjetil/blog/ state=directory owner=kjetil group=www-data mode=775 recurse=yes
+  file: name=/var/www/blog/ state=directory owner=kjetil group=www-data mode=775 recurse=yes
