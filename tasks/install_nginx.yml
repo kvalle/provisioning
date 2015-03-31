@@ -1,17 +1,18 @@
 - name: Install Nginx
   apt: pkg=nginx state=installed
-  sudo: yes
 
 - name: Ensure nginx is started
   service: name=nginx state=started
-  sudo: yes
 
 - name: Create nginx sites-available/default.d directory
   file: name=/etc/nginx/sites-available/default.d state=directory recurse=yes
-  sudo: yes
 
 - name: Nginx default config
   template: src=nginx/default.jinja dest=/etc/nginx/sites-available/default owner=root mode=644
-  sudo: yes
+  notify:
+    - reload nginx
+
+- name: Link default into sites-enabled
+  file: state=link src=/etc/nginx/sites-available/default dest=/etc/nginx/sites-enabled/default
   notify:
     - reload nginx

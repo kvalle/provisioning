@@ -1,20 +1,11 @@
 ---
 - include: basic.yml
 
-- name: Installing necessary bells and whistles
-  remote_user: kjetil
-  hosts: all
-  tasks:
-    - include: tasks/install_nginx.yml
-  handlers:
-    - name: reload nginx
-      service: name=nginx state=reloaded
-      sudo: yes
-
 - name: Installing and configuring Cellarium
   remote_user: root
   hosts: all
   tasks:
+    - include: tasks/install_nginx.yml
     - include: tasks/blog.yml
     - include: tasks/cellarium.yml
     - include: tasks/git.yml
@@ -23,3 +14,5 @@
       service: name=nginx state=reloaded
     - name: restart cellarium
       service: name=cellarium state=restarted
+    - name: reload nginx
+      service: name=nginx state=reloaded
